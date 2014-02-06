@@ -1,0 +1,23 @@
+#######################################
+# Syntax Coloring Map For eDIP_I2C
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+eDIP_I2C	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+getProtocolSettings	KEYWORD2
+sendData	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+EDIP_I2C_VERSION	LITERAL1
