@@ -24,6 +24,10 @@ public:
 
   bool getProtocolSettings(uint8_t *maxPacketSize, uint8_t *actualPacketSize, uint8_t *actualTimeout);
 
+  // Buffer functions
+  bool getBufferInfo(uint8_t *ready, uint8_t *free);
+  int  getBuffer(const uint8_t len, char *buf);
+
   // RAW data function
   bool sendData(const uint8_t len, const char* buf);
 

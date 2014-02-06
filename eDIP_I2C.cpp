@@ -61,6 +61,35 @@ bool eDIP_I2C::getProtocolSettings(uint8_t *maxPacketSize, uint8_t *actualPacket
   return true;
 }
 
+// Buffer functions
+
+bool eDIP_I2C::getBufferInfo(uint8_t *ready, uint8_t *free) {
+  char cmd[1] = { 'I' };
+
+  if (!i2csend(DC2, 1, cmd))
+    return false;
+
+  char info[2];
+  if (i2crecv(DC2, 2, info) != 2)
+    return false;
+
+  if (ready)
+    *ready = info[0];
+  if (free)
+    *free = info[1];
+
+  return true;
+}
+
+int eDIP_I2C::getBuffer(const uint8_t len, char *buf) {
+  char cmd[1] = { 'S' };
+
+  if (!i2csend(DC2, 1, cmd))
+    return -1;
+
+  return i2crecv(DC1, len, buf);
+}
+
 // RAW data function
 
 bool eDIP_I2C::sendData(const uint8_t len, const char* buf) {
