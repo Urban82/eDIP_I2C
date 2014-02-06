@@ -96,6 +96,50 @@ bool eDIP_I2C::sendData(const uint8_t len, const char* buf) {
   return i2csend(DC1, len, buf);
 }
 
+// Terminal functions
+
+bool eDIP_I2C::terminalShow() {
+  char cmd[3] = { ESC, 'T', 'E' };
+  return sendData(3, cmd);
+}
+
+bool eDIP_I2C::terminalHide() {
+  char cmd[3] = { ESC, 'T', 'A' };
+  return sendData(3, cmd);
+}
+
+bool eDIP_I2C::terminalClear() {
+  char cmd[1] = { 12 };
+  return sendData(1, cmd);
+}
+
+bool eDIP_I2C::terminalCursor(bool on) {
+  char cmd[4] = { ESC, 'T', 'C', on ? 1 : 0 };
+  return sendData(4, cmd);
+}
+
+bool eDIP_I2C::terminalPosition(uint8_t column, uint8_t line) {
+  char cmd[5] = { ESC, 'T', 'P', column, line };
+  return sendData(5, cmd);
+}
+
+bool eDIP_I2C::terminalPrintRevision() {
+  char cmd[3] = { ESC, 'T', 'V' };
+  return sendData(3, cmd);
+}
+
+// Display functions
+
+bool eDIP_I2C::displayShow() {
+  char cmd[3] = { ESC, 'D', 'E' };
+  return sendData(3, cmd);
+}
+
+bool eDIP_I2C::displayHide() {
+  char cmd[3] = { ESC, 'D', 'A' };
+  return sendData(3, cmd);
+}
+
 // Communication functions
 
 bool eDIP_I2C::i2csend(const uint8_t code, const uint8_t len, const char* buf) {

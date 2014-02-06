@@ -31,6 +31,18 @@ public:
   // RAW data function
   bool sendData(const uint8_t len, const char* buf);
 
+  // Terminal functions
+  bool terminalShow();
+  bool terminalHide();
+  bool terminalClear();
+  bool terminalCursor(bool on);
+  bool terminalPosition(uint8_t column, uint8_t line);
+  bool terminalPrintRevision();
+
+  // Display functions
+  bool displayShow();
+  bool displayHide();
+
 private:
   bool i2csend(const uint8_t code, const uint8_t len, const char* buf);
   int i2crecv(const uint8_t code, const uint8_t len, char* buf);
