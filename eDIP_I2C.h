@@ -14,7 +14,7 @@
  #include <Arduino.h>
 #endif
 
-#define EDIP_I2C_VERSION "0.1"
+#define EDIP_I2C_VERSION "1.0"
 
 class eDIP_I2C {
 public:
