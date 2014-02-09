@@ -13,22 +13,32 @@ eDIP_I2C	KEYWORD1
 #######################################
 
 begin	KEYWORD2
+
 getProtocolSettings	KEYWORD2
 getBufferInfo	KEYWORD2
 getBuffer	KEYWORD2
+
 sendData	KEYWORD2
+
 terminalShow	KEYWORD2
 terminalHide	KEYWORD2
 terminalClear	KEYWORD2
 terminalCursor	KEYWORD2
 terminalPosition	KEYWORD2
 terminalPrintRevision	KEYWORD2
+
 displayShow	KEYWORD2
 displayHide	KEYWORD2
 displayClear	KEYWORD2
 displayFill	KEYWORD2
 displayInvert	KEYWORD2
+
 displayString	KEYWORD2
+setTextFont	KEYWORD2
+setTextZoom	KEYWORD2
+setTextDirection	KEYWORD2
+setTextMode	KEYWORD2
+setTextBlink	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
