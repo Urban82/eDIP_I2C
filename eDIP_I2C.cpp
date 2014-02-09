@@ -303,7 +303,13 @@ static void i2cwrite(uint8_t x) {
 
 #ifdef EDIP_I2C_DEBUG
   Serial.print("> 0x");
-  Serial.println(x, HEX);
+  Serial.print(x, HEX);
+  if ((x >= '0' && x <= '9') || (x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z')) {
+    Serial.print(" [");
+    Serial.print((char) x);
+    Serial.print("]");
+  }
+  Serial.println("");
 #endif
 }
 
@@ -336,7 +342,13 @@ static bool i2cread(uint8_t *x, unsigned long timeout) {
 
 #ifdef EDIP_I2C_DEBUG
   Serial.print("< 0x");
-  Serial.println(*x, HEX);
+  Serial.print(*x, HEX);
+  if ((*x >= '0' && *x <= '9') || (*x >= 'A' && *x <= 'Z') || (*x >= 'a' && *x <= 'z')) {
+    Serial.print(" [");
+    Serial.print((char) *x);
+    Serial.print("]");
+  }
+  Serial.println("");
 #endif
 
   return true;
