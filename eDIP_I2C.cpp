@@ -140,6 +140,21 @@ bool eDIP_I2C::displayHide() {
   return sendData(3, cmd);
 }
 
+bool eDIP_I2C::displayClear() {
+  char cmd[3] = { ESC, 'D', 'L' };
+  return sendData(3, cmd);
+}
+
+bool eDIP_I2C::displayFill() {
+  char cmd[3] = { ESC, 'D', 'S' };
+  return sendData(3, cmd);
+}
+
+bool eDIP_I2C::displayInvert() {
+  char cmd[3] = { ESC, 'D', 'I' };
+  return sendData(3, cmd);
+}
+
 // Communication functions
 
 bool eDIP_I2C::i2csend(const uint8_t code, const uint8_t len, const char* buf) {

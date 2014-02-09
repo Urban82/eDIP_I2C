@@ -42,6 +42,9 @@ public:
   // Display functions
   bool displayShow();
   bool displayHide();
+  bool displayClear();
+  bool displayFill();
+  bool displayInvert();
 
 private:
   bool i2csend(const uint8_t code, const uint8_t len, const char* buf);

@@ -25,6 +25,9 @@ terminalPosition	KEYWORD2
 terminalPrintRevision	KEYWORD2
 displayShow	KEYWORD2
 displayHide	KEYWORD2
+displayClear	KEYWORD2
+displayFill	KEYWORD2
+displayInvert	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
