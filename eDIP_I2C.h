@@ -80,6 +80,21 @@ public:
   bool setTextMode(uint8_t mode);
   bool setTextBlink(uint8_t blink);
 
+  // Draw functions
+  bool drawPoint(uint8_t x, uint8_t y);
+  bool drawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
+  bool drawContinueLine(uint8_t x, uint8_t y);
+  bool drawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
+  bool clearArea(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
+  bool invertArea(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
+  bool fillArea(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
+  bool fillArea(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t pattern);
+  bool fillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t pattern);
+  bool drawBox(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t type);
+  bool fillBox(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t type);
+  bool setDrawWidth(uint8_t x, uint8_t y);
+  bool setDrawMode(uint8_t mode);
+
 private:
   bool i2csend(const uint8_t code, const uint8_t len, const char* buf);
   int i2crecv(const uint8_t code, const uint8_t len, char* buf);

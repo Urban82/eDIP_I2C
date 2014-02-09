@@ -215,6 +215,72 @@ bool eDIP_I2C::setTextBlink(uint8_t blink) {
   return sendData(4, cmd);
 }
 
+// Draw functions
+
+bool eDIP_I2C::drawPoint(uint8_t x, uint8_t y) {
+  char cmd[5] = { ESC, 'G', 'P', x, y };
+  return sendData(5, cmd);
+}
+
+bool eDIP_I2C::drawLine(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+  char cmd[7] = { ESC, 'G', 'D', x1, y1, x2, y2 };
+  return sendData(7, cmd);
+}
+
+bool eDIP_I2C::drawContinueLine(uint8_t x, uint8_t y) {
+  char cmd[5] = { ESC, 'G', 'W', x, y };
+  return sendData(5, cmd);
+}
+
+bool eDIP_I2C::drawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+  char cmd[7] = { ESC, 'G', 'R', x1, y1, x2, y2 };
+  return sendData(7, cmd);
+}
+
+bool eDIP_I2C::clearArea(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+  char cmd[7] = { ESC, 'R', 'L', x1, y1, x2, y2 };
+  return sendData(7, cmd);
+}
+
+bool eDIP_I2C::invertArea(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+  char cmd[7] = { ESC, 'R', 'I', x1, y1, x2, y2 };
+  return sendData(7, cmd);
+}
+
+bool eDIP_I2C::fillArea(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+  char cmd[7] = { ESC, 'R', 'S', x1, y1, x2, y2 };
+  return sendData(7, cmd);
+}
+
+bool eDIP_I2C::fillArea(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t pattern) {
+  char cmd[8] = { ESC, 'R', 'M', x1, y1, x2, y2, pattern };
+  return sendData(8, cmd);
+}
+
+bool eDIP_I2C::fillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t pattern) {
+  char cmd[8] = { ESC, 'R', 'O', x1, y1, x2, y2, pattern };
+  return sendData(8, cmd);
+}
+
+bool eDIP_I2C::drawBox(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t type) {
+  char cmd[8] = { ESC, 'R', 'R', x1, y1, x2, y2, type };
+  return sendData(8, cmd);
+}
+
+bool eDIP_I2C::fillBox(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t type) {
+  char cmd[8] = { ESC, 'R', 'T', x1, y1, x2, y2, type };
+  return sendData(8, cmd);
+}
+
+bool eDIP_I2C::setDrawWidth(uint8_t x, uint8_t y) {
+  char cmd[5] = { ESC, 'G', 'Z', x, y };
+  return sendData(5, cmd);
+}
+
+bool eDIP_I2C::setDrawMode(uint8_t mode) {
+  char cmd[4] = { ESC, 'G', 'V', mode };
+  return sendData(4, cmd);
+}
 
 // Communication functions
 

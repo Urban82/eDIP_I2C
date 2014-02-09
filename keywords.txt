@@ -40,6 +40,20 @@ setTextDirection	KEYWORD2
 setTextMode	KEYWORD2
 setTextBlink	KEYWORD2
 
+drawPoint	KEYWORD2
+drawLine	KEYWORD2
+drawContinueLine	KEYWORD2
+drawRectangle	KEYWORD2
+clearArea	KEYWORD2
+invertArea	KEYWORD2
+fillArea	KEYWORD2
+fillArea	KEYWORD2
+fillRectangle	KEYWORD2
+drawBox	KEYWORD2
+fillBox	KEYWORD2
+setDrawWidth	KEYWORD2
+setDrawMode	KEYWORD2
+
 #######################################
 # Constants (LITERAL1)
 #######################################
