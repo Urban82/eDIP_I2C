@@ -16,6 +16,32 @@
 
 #define EDIP_I2C_VERSION "1.0"
 
+#define EDIP_I2C_LEFT   0x01
+#define EDIP_I2C_CENTER 0x02
+#define EDIP_I2C_RIGHT  0x03
+
+#define EDIP_I2C_FONT_MONO_4_6  0x01
+#define EDIP_I2C_FONT_MONO_6_8  0x02
+#define EDIP_I2C_FONT_MONO_7_12 0x03
+#define EDIP_I2C_FONT_GENEVA10  0x04
+#define EDIP_I2C_FONT_CHICAGO14 0x05
+#define EDIP_I2C_FONT_SWISS30   0x06
+#define EDIP_I2C_FONT_BIG_NUM   0x07
+#define EDIP_I2C_FONT_MONO_8_8  0x08
+
+#define EDIP_I2C_DIRECTION_LEFT 0x00
+#define EDIP_I2C_DIRECTION_UP   0x01
+
+#define EDIP_I2C_MODE_SET         0x01
+#define EDIP_I2C_MODE_DELETE      0x02
+#define EDIP_I2C_MODE_INVERSE     0x03
+#define EDIP_I2C_MODE_REPLACE     0x04
+#define EDIP_I2C_MODE_INV_REPLACE 0x05
+
+#define EDIP_I2C_BLINK_OFF    0x00
+#define EDIP_I2C_BLINK_ON     0x01
+#define EDIP_I2C_BLINK_INVERT 0x02
+
 class eDIP_I2C {
 public:
   eDIP_I2C(uint8_t address);
@@ -45,6 +71,14 @@ public:
   bool displayClear();
   bool displayFill();
   bool displayInvert();
+
+  // Text functions
+  bool displayString(uint8_t align, uint8_t x, uint8_t y, const char* text);
+  bool setTextFont(uint8_t font);
+  bool setTextZoom(uint8_t x, uint8_t y);
+  bool setTextDirection(uint8_t direction);
+  bool setTextMode(uint8_t mode);
+  bool setTextBlink(uint8_t blink);
 
 private:
   bool i2csend(const uint8_t code, const uint8_t len, const char* buf);

@@ -155,6 +155,67 @@ bool eDIP_I2C::displayInvert() {
   return sendData(3, cmd);
 }
 
+// Text functions
+
+bool eDIP_I2C::displayString(uint8_t align, uint8_t x, uint8_t y, const char* text) {
+  char cmd[256];
+
+  cmd[0] = ESC;
+  cmd[1] = 'Z';
+  switch (align) {
+    case EDIP_I2C_LEFT:
+      cmd[2] = 'L';
+      break;
+    case EDIP_I2C_CENTER:
+      cmd[2] = 'C';
+      break;
+    case EDIP_I2C_RIGHT:
+      cmd[2] = 'R';
+      break;
+    default:
+      return false;
+  }
+
+  cmd[3] = x;
+  cmd[4] = y;
+
+  uint8_t len = 0;
+  while (len < 256) {
+    cmd[len + 5] = text[len];
+    if (text[len] == 0)
+      break;
+    ++len;
+  }
+
+  return sendData(len + 6, cmd);
+}
+
+bool eDIP_I2C::setTextFont(uint8_t font) {
+  char cmd[4] = { ESC, 'Z', 'F', font };
+  return sendData(4, cmd);
+}
+
+bool eDIP_I2C::setTextZoom(uint8_t x, uint8_t y) {
+  char cmd[5] = { ESC, 'Z', 'Z', x, y };
+  return sendData(5, cmd);
+}
+
+bool eDIP_I2C::setTextDirection(uint8_t direction) {
+  char cmd[4] = { ESC, 'Z', 'W', direction };
+  return sendData(4, cmd);
+}
+
+bool eDIP_I2C::setTextMode(uint8_t mode) {
+  char cmd[4] = { ESC, 'Z', 'V', mode };
+  return sendData(4, cmd);
+}
+
+bool eDIP_I2C::setTextBlink(uint8_t blink) {
+  char cmd[4] = { ESC, 'Z', 'B', blink };
+  return sendData(4, cmd);
+}
+
+
 // Communication functions
 
 bool eDIP_I2C::i2csend(const uint8_t code, const uint8_t len, const char* buf) {
