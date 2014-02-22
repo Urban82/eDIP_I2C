@@ -358,11 +358,16 @@ int eDIP_I2C::i2crecv(const uint8_t code, const uint8_t len, char* buf) {
     return -1;
   bcc += l;
 
-  Wire.requestFrom(m_address, l);
-  for (uint8_t i = 0; i < l && i < len; ++i) {
-    if (!i2cread((uint8_t*) &buf[i], m_timeout))
+  uint8_t rl = Wire.requestFrom(m_address, l);
+  if (rl != l)
+    return -1;
+  for (uint8_t i = 0; i < l; ++i) {
+    uint8_t tmp;
+    if (!i2cread(&tmp, m_timeout))
       return -1;
-    bcc += buf[i];
+    bcc += tmp;
+    if (i < len)
+      buf[i] = tmp;
   }
 
   Wire.requestFrom(m_address, (uint8_t) 1);
