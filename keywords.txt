@@ -58,6 +58,18 @@ backlightOn	KEYWORD2
 backlightOff	KEYWORD2
 backlight	KEYWORD2
 
+setTouchFrame	KEYWORD2
+setTouchFont	KEYWORD2
+setTouchZoom	KEYWORD2
+setMenuFont	KEYWORD2
+setMenuZoom	KEYWORD2
+setTouchResponse	KEYWORD2
+createTouchKey	KEYWORD2
+createTouchSwitch	KEYWORD2
+createTouchMenu	KEYWORD2
+setTouchSwitch	KEYWORD2
+deleteTouchArea	KEYWORD2
+
 #######################################
 # Constants (LITERAL1)
 #######################################
@@ -67,6 +79,8 @@ EDIP_I2C_VERSION	LITERAL1
 EDIP_I2C_LEFT	LITERAL1
 EDIP_I2C_CENTER	LITERAL1
 EDIP_I2C_RIGHT	LITERAL1
+EDIP_I2C_UP	LITERAL1
+EDIP_I2C_DOWN	LITERAL1
 
 EDIP_I2C_FONT_MONO_4_6	LITERAL1
 EDIP_I2C_FONT_MONO_6_8	LITERAL1

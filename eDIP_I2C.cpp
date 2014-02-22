@@ -300,6 +300,207 @@ bool eDIP_I2C::backlight(uint8_t level) {
   return sendData(4, cmd);
 }
 
+// Touch functions
+
+bool eDIP_I2C::setTouchFrame(uint8_t type) {
+  char cmd[4] = { ESC, 'A', 'E', type };
+  return sendData(4, cmd);
+}
+
+bool eDIP_I2C::setTouchFont(uint8_t font) {
+  char cmd[4] = { ESC, 'A', 'F', font };
+  return sendData(4, cmd);
+}
+
+bool eDIP_I2C::setTouchZoom(uint8_t x, uint8_t y) {
+  char cmd[5] = { ESC, 'A', 'Z', x, y };
+  return sendData(5, cmd);
+}
+
+bool eDIP_I2C::setMenuFont(uint8_t font) {
+  char cmd[4] = { ESC, 'N', 'F', font };
+  return sendData(4, cmd);
+}
+
+bool eDIP_I2C::setMenuZoom(uint8_t x, uint8_t y) {
+  char cmd[5] = { ESC, 'N', 'Z', x, y };
+  return sendData(5, cmd);
+}
+
+bool eDIP_I2C::setTouchResponse(uint8_t on) {
+  char cmd[4] = { ESC, 'A', 'I', on };
+  return sendData(4, cmd);
+}
+
+bool eDIP_I2C::createTouchKey(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t down_code, uint8_t up_code, uint8_t align, const char* text) {
+  char cmd[256];
+
+  cmd[0] = ESC;
+  cmd[1] = 'A';
+  cmd[2] = 'T';
+
+  cmd[3] = x1;
+  cmd[4] = y1;
+
+  cmd[5] = x2;
+  cmd[6] = y2;
+
+  cmd[7] = down_code;
+  cmd[8] = up_code;
+
+  switch (align) {
+    case EDIP_I2C_LEFT:
+      cmd[9] = 'L';
+      break;
+    case EDIP_I2C_CENTER:
+      cmd[9] = 'C';
+      break;
+    case EDIP_I2C_RIGHT:
+      cmd[9] = 'R';
+      break;
+    default:
+      return false;
+  }
+
+  uint8_t len = 0;
+  while (len < 256) {
+    cmd[len + 10] = text[len];
+    if (text[len] == 0)
+      break;
+    ++len;
+  }
+
+  return sendData(len + 11, cmd);
+}
+
+bool eDIP_I2C::createTouchSwitch(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t down_code, uint8_t up_code, uint8_t align, const char* text) {
+  char cmd[256];
+
+  cmd[0] = ESC;
+  cmd[1] = 'A';
+  cmd[2] = 'K';
+
+  cmd[3] = x1;
+  cmd[4] = y1;
+
+  cmd[5] = x2;
+  cmd[6] = y2;
+
+  cmd[7] = down_code;
+  cmd[8] = up_code;
+
+  switch (align) {
+    case EDIP_I2C_LEFT:
+      cmd[9] = 'L';
+      break;
+    case EDIP_I2C_CENTER:
+      cmd[9] = 'C';
+      break;
+    case EDIP_I2C_RIGHT:
+      cmd[9] = 'R';
+      break;
+    default:
+      return false;
+  }
+
+  uint8_t len = 0;
+  while (len < 256) {
+    cmd[len + 10] = text[len];
+    if (text[len] == 0)
+      break;
+    ++len;
+  }
+
+  return sendData(len + 11, cmd);
+}
+
+bool eDIP_I2C::createTouchMenu(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t down_code, uint8_t up_code, uint8_t menu_code, uint8_t open_dir, uint8_t align, const char* text, const char* items) {
+  char cmd[256];
+
+  cmd[0] = ESC;
+  cmd[1] = 'A';
+  cmd[2] = 'M';
+
+  cmd[3] = x1;
+  cmd[4] = y1;
+
+  cmd[5] = x2;
+  cmd[6] = y2;
+
+  cmd[7] = down_code;
+  cmd[8] = up_code;
+  cmd[9] = menu_code;
+
+  switch (open_dir) {
+    case EDIP_I2C_LEFT:
+      cmd[10] = 'L';
+      break;
+    case EDIP_I2C_RIGHT:
+      cmd[10] = 'R';
+      break;
+    case EDIP_I2C_UP:
+      cmd[10] = 'O';
+      break;
+    case EDIP_I2C_DOWN:
+      cmd[10] = 'U';
+      break;
+    default:
+      return false;
+  }
+
+  switch (align) {
+    case EDIP_I2C_LEFT:
+      cmd[11] = 'L';
+      break;
+    case EDIP_I2C_CENTER:
+      cmd[11] = 'C';
+      break;
+    case EDIP_I2C_RIGHT:
+      cmd[11] = 'R';
+      break;
+    default:
+      return false;
+  }
+
+  uint8_t len_text = 0;
+  while (len_text < 256) {
+    cmd[len_text + 12] = text[len_text];
+    if (text[len_text] == 0)
+      break;
+    ++len_text;
+  }
+  cmd[len_text + 12] = '|';
+
+  uint8_t len_items = 0;
+  while (len_items < 256) {
+    cmd[len_items + len_text + 13] = items[len_items];
+    if (items[len_items] == 0)
+      break;
+    ++len_items;
+  }
+/*
+  Serial.print("Create menu [");
+  Serial.print(len_items + len_text + 14);
+  Serial.print("]:");
+  for (uint8_t i = 0; i < len_items + len_text + 14; ++i) {
+    Serial.print(" ");
+    SerialPrintValue(cmd[i]);
+  }
+  Serial.println("");
+*/
+  return sendData(len_items + len_text + 14, cmd);
+}
+
+bool eDIP_I2C::setTouchSwitch(uint8_t code, uint8_t value) {
+  char cmd[5] = { ESC, 'A', 'P', code, value };
+  return sendData(5, cmd);
+}
+
+bool eDIP_I2C::deleteTouchArea(uint8_t code, uint8_t clear) {
+  char cmd[5] = { ESC, 'A', 'L', code, clear };
+  return sendData(5, cmd);
+}
+
 // Communication functions
 
 bool eDIP_I2C::i2csend(const uint8_t code, const uint8_t len, const char* buf) {

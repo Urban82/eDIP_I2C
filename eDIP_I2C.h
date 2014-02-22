@@ -19,6 +19,8 @@
 #define EDIP_I2C_LEFT   0x01
 #define EDIP_I2C_CENTER 0x02
 #define EDIP_I2C_RIGHT  0x03
+#define EDIP_I2C_UP     0x04
+#define EDIP_I2C_DOWN   0x05
 
 #define EDIP_I2C_FONT_MONO_8_8  0x00
 #define EDIP_I2C_FONT_MONO_4_6  0x01
@@ -99,6 +101,19 @@ public:
   bool backlightOn();
   bool backlightOff();
   bool backlight(uint8_t level);
+
+  // Touch functions
+  bool setTouchFrame(uint8_t type);
+  bool setTouchFont(uint8_t font);
+  bool setTouchZoom(uint8_t x, uint8_t y);
+  bool setMenuFont(uint8_t font);
+  bool setMenuZoom(uint8_t x, uint8_t y);
+  bool setTouchResponse(uint8_t on);
+  bool createTouchKey(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t down_code, uint8_t up_code, uint8_t align, const char* text);
+  bool createTouchSwitch(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t down_code, uint8_t up_code, uint8_t align, const char* text);
+  bool createTouchMenu(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t down_code, uint8_t up_code, uint8_t menu_code, uint8_t open_dir, uint8_t align, const char* text, const char* items);
+  bool setTouchSwitch(uint8_t code, uint8_t value);
+  bool deleteTouchArea(uint8_t code, uint8_t clear);
 
 private:
   bool i2csend(const uint8_t code, const uint8_t len, const char* buf);
