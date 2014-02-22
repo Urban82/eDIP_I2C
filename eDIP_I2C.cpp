@@ -23,6 +23,7 @@
 
 static void i2cwrite(uint8_t x);
 static bool i2cread(uint8_t *x, unsigned long timeout);
+static void SerialPrintValue(uint8_t x);
 
 eDIP_I2C::eDIP_I2C(uint8_t address)
   : m_address(address)
@@ -386,12 +387,7 @@ static void i2cwrite(uint8_t x) {
 
 #ifdef EDIP_I2C_DEBUG
   Serial.print("> 0x");
-  Serial.print(x, HEX);
-  if ((x >= '0' && x <= '9') || (x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z')) {
-    Serial.print(" [");
-    Serial.print((char) x);
-    Serial.print("]");
-  }
+  SerialPrintValue(x);
   Serial.println("");
 #endif
 }
@@ -425,14 +421,21 @@ static bool i2cread(uint8_t *x, unsigned long timeout) {
 
 #ifdef EDIP_I2C_DEBUG
   Serial.print("< 0x");
-  Serial.print(*x, HEX);
-  if ((*x >= '0' && *x <= '9') || (*x >= 'A' && *x <= 'Z') || (*x >= 'a' && *x <= 'z')) {
-    Serial.print(" [");
-    Serial.print((char) *x);
-    Serial.print("]");
-  }
+  SerialPrintValue(*x);
   Serial.println("");
 #endif
 
   return true;
+}
+
+static void SerialPrintValue(uint8_t x) {
+  Serial.print(x, HEX);
+  if (
+      (x >= '0' && x <= '9') || (x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z') ||
+      x == '|' || x == ' ' || x == '+' || x == '-' || x == '*' || x == '/'
+     ) {
+    Serial.print(" [");
+    Serial.print((char) x);
+    Serial.print("]");
+  }
 }
