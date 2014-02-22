@@ -369,6 +369,8 @@ int eDIP_I2C::i2crecv(const uint8_t code, const uint8_t len, char* buf) {
     if (i < len)
       buf[i] = tmp;
   }
+  if (l < len)
+    buf[l] = 0;
 
   Wire.requestFrom(m_address, (uint8_t) 1);
   if (!i2cread(&r, m_timeout))
