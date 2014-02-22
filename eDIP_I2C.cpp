@@ -282,6 +282,23 @@ bool eDIP_I2C::setDrawMode(uint8_t mode) {
   return sendData(4, cmd);
 }
 
+// Backlight functions
+
+bool eDIP_I2C::backlightOn() {
+  char cmd[4] = { ESC, 'Y', 'L', 1 };
+  return sendData(4, cmd);
+}
+
+bool eDIP_I2C::backlightOff() {
+  char cmd[4] = { ESC, 'Y', 'L', 0 };
+  return sendData(4, cmd);
+}
+
+bool eDIP_I2C::backlight(uint8_t level) {
+  char cmd[4] = { ESC, 'Y', 'H', level };
+  return sendData(4, cmd);
+}
+
 // Communication functions
 
 bool eDIP_I2C::i2csend(const uint8_t code, const uint8_t len, const char* buf) {

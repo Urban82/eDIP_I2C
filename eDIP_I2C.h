@@ -95,6 +95,11 @@ public:
   bool setDrawWidth(uint8_t x, uint8_t y);
   bool setDrawMode(uint8_t mode);
 
+  // Backlight functions
+  bool backlightOn();
+  bool backlightOff();
+  bool backlight(uint8_t level);
+
 private:
   bool i2csend(const uint8_t code, const uint8_t len, const char* buf);
   int i2crecv(const uint8_t code, const uint8_t len, char* buf);

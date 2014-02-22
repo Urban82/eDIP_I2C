@@ -54,6 +54,10 @@ fillBox	KEYWORD2
 setDrawWidth	KEYWORD2
 setDrawMode	KEYWORD2
 
+backlightOn	KEYWORD2
+backlightOff	KEYWORD2
+backlight	KEYWORD2
+
 #######################################
 # Constants (LITERAL1)
 #######################################
