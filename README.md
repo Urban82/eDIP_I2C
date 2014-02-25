@@ -6,11 +6,11 @@ This library is for use on Arduino with a EA eDIP graphic LCD display connected 
 
 ## Installation
 
-Put a folder named `eDIP_I2C` on your `libraries` folder on your arduino workspace.
+Put the files and the `examples` folder in a folder named `eDIP_I2C` on your `libraries` folder on your arduino workspace.
 
 ## Examples
 
-The library contain some examples to show the usage
+The library contains some examples to show the usage
 
 ## Addressing
 
